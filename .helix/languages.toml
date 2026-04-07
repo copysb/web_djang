@@ -1,0 +1,15 @@
+[[language]]
+name = "htmldjango"
+file-types = ["html"]
+roots = ["manage.py"]
+language-servers = ["djlsp"]
+
+[language-server.djlsp]
+command = "djlsp"
+
+[language-server.djlsp.environment]
+DJANGO_SETTINGS_MODULE = "django_labs.settings"
+PYTHONPATH = "."
+
+[language-server.djlsp.config]
+django_settings_module = "django_labs.settings"

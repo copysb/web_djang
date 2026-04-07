@@ -1,0 +1,16 @@
+{%extends "lab1django/base.html" %}
+{%block page_name%}Главная страница{%endblock%}
+{%block page_content%}
+{%load custom%}
+{%if books%}
+<h1>Основная информация о книгах</h1>
+{%for book in books%}
+<p>{{book.title}}</p>
+<p>{%book_mood book.rating%}</p>
+<p>{{book.genre}}</p>
+{%include 'lab1django/book_details.html' with book_name=book.title rating=book.rating genre=book.genre publication_date=book.publication_date %}
+{%endfor%}
+{%else%}
+	<p>Пока что книг нет</p>
+{%endif%}
+{%endblock%}
