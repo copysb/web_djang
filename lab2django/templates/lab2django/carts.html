@@ -1,0 +1,111 @@
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        margin: 0;
+        padding: 30px;
+        color: #222;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .cart {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+        border-left: 5px solid #3498db;
+    }
+
+    .cart.buyed {
+        border-left-color: #2ecc71;
+    }
+
+    .cart-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .status {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 8px;
+        font-size: 13px;
+        background: #eee;
+        margin-right: 6px;
+    }
+
+    .status.buyed {
+        background: #d4f8df;
+        color: #1e8449;
+    }
+
+    .date {
+        color: #666;
+        font-size: 14px;
+        margin: 4px 0;
+    }
+
+    .products {
+        margin-top: 15px;
+        padding-left: 0;
+    }
+
+    .product {
+        list-style: none;
+        background: #f8f9fa;
+        margin-bottom: 8px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid #e1e4e8;
+    }
+
+    .price {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .empty {
+        color: #999;
+        font-style: italic;
+    }
+</style>
+
+<h1>Список корзин</h1>
+
+{% for korz in korzinas %}
+    <div class="cart {% if korz.is_buyed %}buyed{% endif %}">
+        <div class="cart-title">
+            {% if korz.is_buyed %}
+                <span class="status buyed">Выкупленная</span>
+            {% else %}
+                <span class="status">Не выкуплена</span>
+            {% endif %}
+
+            Корзина покупателя {{ korz.pokupatel }}
+        </div>
+
+        <p class="date">Создана: {{ korz.created_at }}</p>
+        <p class="date">Покупатель создан: {{ korz.pokupatel.created_at }}</p>
+
+        <ul class="products">
+            {% for tovar in korz.tovar.all %}
+                <li class="product">
+                    Товар: <b>{{ tovar.name }}</b>
+                    по цене <span class="price">{{ tovar.price }} ₽</span>
+                    <br>
+                    <span class="date">Создан: {{ tovar.created_at }}</span>
+                </li>
+            {% empty %}
+                <li class="empty">В этой корзине нет товаров</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% empty %}
+    <p class="empty">Корзин пока нет</p>
+{% endfor %}

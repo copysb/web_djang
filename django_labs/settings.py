@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'lab2django.apps.Lab2DjangoConfig',
     'lab1django.apps.Lab1DjangoConfig',
     'django.contrib.admin',
     'django.contrib.auth',
